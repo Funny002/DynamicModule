@@ -7,3 +7,4 @@ dist
 .cache
 #
 auto-imports.d.ts
+tsconfig.tsbuildinfo

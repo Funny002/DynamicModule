@@ -36,4 +36,9 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: {
+      'dynamic-module': resolve(__dirname, 'src'),
+    },
+  },
 });

@@ -1,6 +1,8 @@
 type LoggerMessageType = 'log' | 'info' | 'warn' | 'error';
 
 export class LoggerMessage {
+  private readonly name: string;
+
   constructor(name?: string) {
     this.name = name || 'Logger Message';
   }

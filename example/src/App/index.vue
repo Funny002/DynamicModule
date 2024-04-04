@@ -1,29 +1,32 @@
 <template>
   <div>App</div>
-  {{ data.formValue }}
+  {{ data }}
   <dynamic-form ref="refModules" v-model="data.formValue" :fields="data.fields" :modules="modules"/>
   <button @click="onClick">onClick</button>
 </template>
 
 <script lang="ts">export default { name: 'App' };</script>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { DynamicForm } from 'dynamic-module';
-import { ElFormItem } from 'element-plus';
+import { ElFormItem, ElInput } from 'element-plus';
+import { provide } from 'vue';
 
 const refModules = ref();
 
 function onClick() {
   console.log(refModules.value);
+  data.fields[0].children[0].show = !data.fields[0].children[0].show;
 }
 
 const modules = {
+  'input': ElInput,
   'form-item': ElFormItem,
 };
 
 const data = reactive({
   value: '',
-  formValue: { name: 'ReFunny' },
+  formValue: { name: 'ReFunny', form: { name: 'FormName' } },
   fields: [
     {
       col: { span: 12 },
@@ -31,9 +34,11 @@ const data = reactive({
       label: '姓名',
       required: true,
       children: [
-        { field: 'input', type: 'password', prop: 'name' },
+        { field: 'input', prop: 'form.name' },
       ],
     },
   ],
 });
+
+provide('dynamic-values', computed(() => data.formValue));
 </script>

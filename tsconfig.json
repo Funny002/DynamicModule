@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES6",
     "module": "ESNext",
     "skipLibCheck": true,
     "useDefineForClassFields": true,
@@ -28,5 +28,5 @@
       "dynamic-module": ["src"]
     }
   },
-  "include": ["example/**/*.ts", "example/**/*.vue", "src/**/*.vue", "src/**/*.ts", "vite.config.ts"]
+  "include": ["{example,src}/**/*.{vue,ts}", "vite.config.ts"]
 }

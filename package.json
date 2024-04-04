@@ -1,13 +1,13 @@
 {
   "name": "dynamic-module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "private": false,
-  "main": "./src/index.ts",
+  "main": "./dist/index.mjs",
+  "module": "./src/index.ts",
   "scripts": {
     "dev": "vite serve example --config vite.config.ts",
-    "build": "vue-tsc && vite build example --config vite.config.ts",
-    "preview": "vite preview"
+    "build": "vue-tsc && vite build"
   },
   "author": "funny002 <funnydsu@gmail.com>",
   "license": "MIT",
@@ -24,6 +24,7 @@
     "vue-tsc": "^1.8.22"
   },
   "files": [
+    "dist",
     "!.cache",
     "!example"
   ]

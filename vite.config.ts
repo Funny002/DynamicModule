@@ -3,11 +3,12 @@ import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
+import * as process from 'process';
 import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
+  plugins: process.env.npm_lifecycle_event === 'build' ? [vue()] : [
     vue(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
@@ -31,9 +32,18 @@ export default defineConfig({
     reportCompressedSize: true, // gzip 压缩大小报告
     outDir: resolve(__dirname, './dist'),
     rollupOptions: {
-      input: {
-        index: resolve(__dirname, './example/index.html'),
+      external: ['vue'],
+      output: {
+        format: 'es',
+        exports: 'named',
+        preserveModules: true,
+        entryFileNames: '[name].cjs',
       },
+    },
+    lib: {
+      formats: ['es'],
+      name: 'dynamic-module',
+      entry: resolve(__dirname, './src/index.ts'),
     },
   },
   resolve: {

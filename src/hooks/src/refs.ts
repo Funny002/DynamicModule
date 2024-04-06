@@ -9,9 +9,8 @@ export function useHookRefs() {
     if (!instance.exposed) instance.exposed = {};
     if (!refCore.value.$) {
       instance.exposed['$el'] = refCore.value;
-      // $el 不显示枚举
       Object.defineProperty(instance.exposed, '$el', { enumerable: false });
-    } else {
+    } else if (refCore.value.$.exposed) {
       const entries = Object.entries(refCore.value.$.exposed);
       for (const [key, value] of entries) {
         instance.exposed[key] = value;

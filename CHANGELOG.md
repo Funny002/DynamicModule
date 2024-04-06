@@ -1,3 +1,9 @@
+## 2024-04-06
+
+- 修正 `useHookRefs` onLoadRef 方法的错误。
+- 修正 `DynamicModules` 默认插槽（`v-slot:default`）丢失问题。
+- 修正 `DynamicModules` 在加载部分 `element-plus` 组件时缺少 `prop` 参数的问题。
+
 ## 2024-04-05
 
 - 将部分代码抽离成 mixin hooks `useHookRefs` `useHookValue`。

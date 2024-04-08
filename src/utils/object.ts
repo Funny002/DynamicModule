@@ -1,6 +1,9 @@
 // 获取对象类型
 export const getType = (target: any) => Object.prototype.toString.call(target).slice(8, -1);
 
+// 判断类型
+export const isType = (target: any, type: string) => getType(target) === type;
+
 // 深拷贝
 export function ObjectDeepCopy(target: any) {
   return JSON.parse(JSON.stringify(target));

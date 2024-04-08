@@ -18,12 +18,13 @@ export function useHookRefs() {
     }
   }
 
-  function onAddRefs(key: string) {
+  function onAddRefs(key: string, refs?: any) {
     return function (ref: any) {
       if (!refCore.value || !instance) return;
       if (!instance.exposed) instance.exposed = {};
       if (!instance.exposed.childRefs) instance.exposed.childRefs = {};
       instance.exposed.childRefs[key] = ref;
+      if (refs) refs = ref;
     };
   }
 

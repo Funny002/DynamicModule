@@ -1,6 +1,7 @@
 <template>
   {{ data.formValue }}
-  <dynamic-modules ref="refModules" :children="data.fields" field="div"/>
+  <dynamic-modules ref="onRef_1" :children="data.fields" field="div"/>
+  <dynamic-modules ref="onRef_2" v-bind="data.fields[0]"/>
 </template>
 
 <script lang="ts">export default { name: 'App' };</script>
@@ -8,10 +9,11 @@
 import { DynamicModules } from 'dynamic-module';
 import { computed, provide, reactive, ref } from 'vue';
 
-const refModules = ref();
+const onRef_1 = ref();
+const onRef_2 = ref();
 
 function onClick(event: any) {
-  console.log(event, refModules.value);
+  console.log(event, onRef_1.value, onRef_2.value);
   // data.fields[0]['show'] = !data.fields[0]['show'];
 }
 

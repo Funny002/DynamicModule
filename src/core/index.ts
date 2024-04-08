@@ -25,7 +25,7 @@ function handleChildren(slots: Record<string, any | any[]>, children: any | any[
       result[keys] = (slotData: any) => target[keys].map((item: any, index: number) => {
         if (isType(item, 'String')) return item;
         const key = `${ keys }-${ index }`;
-        return cloneVNode(DynamicModules, { ...item, key, ref_for: true, ref: onAddRefs(key, item.ref), slotData });
+        return cloneVNode(DynamicModules, { ...item, key, ref: onAddRefs(key, item.ref), slotData });
       });
     }
   }
@@ -45,7 +45,7 @@ export const DynamicModules = defineComponent({
     slotData: { type: Object as PropType<BaseField['slotData']>, default: () => ({}) },
     children: { type: [Array, String] as PropType<BaseField['children']>, default: () => '' },
   },
-  setup(props, { attrs }: any) {
+  setup(props, { attrs, expose }: any) {
     // inject
     const logger = inject<LoggerMessage | Console>('logger-message', console);
     const models = inject<Ref<{ [key: string]: any }>>('dynamic-modules', shallowRef({}));
@@ -58,9 +58,10 @@ export const DynamicModules = defineComponent({
     const { refCore, onLoadRef, onAddRefs } = useHookRefs();
     onMounted(() => onLoadRef());
     // render
+    expose({});
     return () => {
       if (!props.show) return null;
-      return createVNode(component, { ...attrs, ref_key: 'refCore', ref: refCore, modelValue: modelValue.value, 'onUpdate:modelValue': (v: any) => modelValue.value = v }, handleChildren(props.slots, props.children, onAddRefs));
+      return createVNode(component, { ...attrs, ref: refCore, modelValue: modelValue.value, 'onUpdate:modelValue': (v: any) => modelValue.value = v }, handleChildren(props.slots, props.children, onAddRefs));
     };
   },
 });

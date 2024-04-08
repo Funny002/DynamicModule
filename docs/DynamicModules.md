@@ -10,7 +10,6 @@
 
 ```typescript
 interface BaseField {
-  id?: string; // 唯一标识暂无用处
   field: string; // 组件名称
   show?: boolean; // 是否显示组件
   props?: string; // 绑定的数据字段
@@ -18,3 +17,7 @@ interface BaseField {
   slots?: Record<string, (BaseField | any)[]>; // 插槽
 }
 ```
+
+### 示例
+
+[DynamicModules](../example/src/DynamicModules.vue)

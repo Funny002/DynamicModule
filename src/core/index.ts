@@ -1,4 +1,4 @@
-import { cloneVNode, createVNode, defineComponent, inject, onMounted, PropType, Ref, resolveComponent, shallowRef } from 'vue';
+import { App, cloneVNode, createVNode, defineComponent, inject, onMounted, PropType, Ref, resolveComponent, shallowRef } from 'vue';
 import { useHookRefs, useHookValue } from '../hooks';
 import { isType, LoggerMessage } from '../utils';
 
@@ -66,6 +66,8 @@ export const DynamicModules = defineComponent({
   },
 });
 
-DynamicModules.install = (app: any) => {
+DynamicModules.install = (app: App) => {
   app.component('DynamicModules', DynamicModules);
 };
+
+export default DynamicModules;

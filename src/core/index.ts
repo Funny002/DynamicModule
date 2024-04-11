@@ -7,7 +7,7 @@ export interface BaseField {
   show?: boolean;
   props?: string;
   slotData?: Record<string, any>;
-  children?: Array<BaseField> | BaseField;
+  children?: Array<BaseField> | BaseField | string;
   slots?: Record<string, Array<BaseField> | BaseField>;
 }
 

@@ -1,4 +1,4 @@
-import { App, cloneVNode, createVNode, defineComponent, inject, onMounted, PropType, Ref, resolveComponent, shallowRef } from 'vue';
+import { App, cloneVNode, createVNode, defineComponent, inject, onMounted, PropType, Ref, renderList, resolveComponent, shallowRef } from 'vue';
 import { useHookRefs, useHookValue } from '../hooks';
 import { isType, LoggerMessage } from '../utils';
 
@@ -22,7 +22,7 @@ function handleChildren(slots: Record<string, any | any[]>, children: any | any[
     if (isType(target[keys], 'String')) {
       result[keys] = () => target[keys];
     } else {
-      result[keys] = (slotData: any) => target[keys].map((item: any, index: number) => {
+      result[keys] = (slotData: any) => renderList(target[keys], (item: any, index: number) => {
         if (isType(item, 'String')) return item;
         const key = `${ keys }-${ index }`;
         return cloneVNode(DynamicModules, { ...item, key, ref: onAddRefs(key, item.ref), slotData });
@@ -43,7 +43,7 @@ export const DynamicModules = defineComponent({
     // 插槽
     slots: { type: Object as PropType<BaseField['slots']>, default: () => ({}) },
     slotData: { type: Object as PropType<BaseField['slotData']>, default: () => ({}) },
-    children: { type: [Array, String] as PropType<BaseField['children']>, default: () => '' },
+    children: { type: [Array, String, Object] as PropType<BaseField['children']>, default: () => '' },
   },
   setup(props, { attrs, expose }: any) {
     // inject

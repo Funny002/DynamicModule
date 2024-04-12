@@ -1,9 +1,13 @@
-import { App, cloneVNode, computed, createVNode, defineComponent, inject, onMounted, PropType, provide, shallowRef } from 'vue';
+import { App, cloneVNode, computed, createVNode, defineComponent, inject, onMounted, PropType, provide, renderList, shallowRef } from 'vue';
 import { ColProps, RowProps, FormProps, ElForm, ElRow, ElCol } from 'element-plus';
 import { BaseField, DynamicModules } from '../../core';
 import { isType, ObjectOmit } from '../../utils';
 import { useHookRefs } from '../../hooks';
 import { Ref } from 'vue';
+//
+import 'element-plus/theme-chalk/el-form.css';
+import 'element-plus/theme-chalk/el-row.css';
+import 'element-plus/theme-chalk/el-col.css';
 
 export interface FormField extends Omit<BaseField, 'field' | 'slots'> {
   row?: RowProps; // 行属性
@@ -14,10 +18,11 @@ export interface FormField extends Omit<BaseField, 'field' | 'slots'> {
   rules?: Record<string, Array<Record<string, any>>>; // 表单验证
 }
 
-export type FormItemField = BaseField & { col: ColProps; } | BaseField;
+export type FormItemField = BaseField & { col?: ColProps; };
 
 export const DynamicForm = defineComponent({
   name: 'DynamicForm',
+  inheritAttrs: false,
   props: {
     show: { type: Boolean as PropType<BaseField['show']>, default: true },
     children: { type: Array as PropType<FormField['children']>, default: () => [] },
@@ -29,22 +34,27 @@ export const DynamicForm = defineComponent({
     modules: { type: Object as PropType<FormField['modules']>, default: () => ({}) },
     modelValue: { type: Object as PropType<FormField['modelValue']>, default: () => ({}) },
   },
-  setup(props, { expose }) {
+  setup(props, { expose, emit }) {
+    // values
+    const values = inject<Ref<{ [key: string]: any }>>('dynamic-values', shallowRef(props.modelValue));
+    provide('dynamic-values', values);
     // models
     const models = inject<Ref<{ [key: string]: any }>>('dynamic-modules', shallowRef({}));
     provide('dynamic-modules', computed(() => ({ ...models.value, ...props.modules })));
+    // emits
+    provide('dynamic-emits', inject('dynamic-emits', emit));
     // refs
     const { refCore, onLoadRef, onAddRefs } = useHookRefs();
     onMounted(() => onLoadRef());
     // render
     expose({});
     return () => {
-      return createVNode(ElForm, { ...props.form, model: props.modelValue, rules: props.rules, ref: refCore }, {
+      return createVNode(ElForm, { ...props.form, model: values.value, rules: props.rules, ref: refCore }, {
         default: () => {
-          return createVNode(ElRow, { ...props.row, ref: onAddRefs('row') }, {
+          return createVNode(ElRow, props.row, {
             default: () => {
               const defaultNode = createVNode(DynamicModules);
-              return props.children.map((child, index) => {
+              return renderList(props.children, (child, index) => {
                 return createVNode(ElCol, child.col || {}, {
                   default: () => {
                     if (isType(child, 'String')) return [child];

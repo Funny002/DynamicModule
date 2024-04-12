@@ -3,7 +3,7 @@ import { computed, inject, Ref } from 'vue';
 export function useHookValue(props: string, value: Ref<Record<string, any>>) {
   if (!props) return { value: undefined };
 
-  const emits = inject<Function>('dynamic-modules', null);
+  const emits = inject<Function>('dynamic-emits', null);
 
   function handlerValue(type: 'get' | 'set') {
     if (!props) return () => {};

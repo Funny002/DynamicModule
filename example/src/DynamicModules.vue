@@ -1,40 +1,35 @@
 <template>
-  <dynamic-modules ref="onRef_1" :children="data.fields" field="div"/>
-  <dynamic-modules ref="onRef_2" v-bind="data.fields[0]"/>
+  <dynamic-modules ref="onRef" :children="data.fields" field="div"/>
 </template>
 
-<script lang="ts">export default { name: 'App' };</script>
+<script lang="ts">export default { name: 'AppDynamicModules' };</script>
 <script lang="ts" setup>
 import { DynamicModules } from 'dynamic-module';
-import { computed, provide, reactive, ref } from 'vue';
+import { provide, reactive, ref } from 'vue';
 
-const onRef_1 = ref();
-const onRef_2 = ref();
+const onRef = ref();
+
+const formValue = ref([{ name: 'ReFunny', age: 18, address: '中国' }]);
 
 const data = reactive({
-  value: '',
-  formValue: { name: 'ReFunny', form: { name: 'FormName' } },
   fields: [{
     field: 'el-form',
     children: [
-      {
-        field: 'el-form-item', label: '姓名', required: true, children: [
-          {
-            field: 'el-input', props: 'form.name', label: '姓名', slots: {
-              prepend: 'http://',
-            },
-          },
-        ],
-      },
+      { field: 'el-form-item', label: '姓名', required: true, children: { field: 'el-input', props: '0.name', label: '姓名', slots: { prepend: '姓名' } } },
+      { field: 'el-form-item', label: '年龄', required: true, children: { field: 'el-input-number', props: '0.age' } },
+      { field: 'el-form-item', label: '地址', children: [{ field: 'el-input', props: '0.address', type: 'textarea' }] },
     ],
   }, {
-    field: 'el-table', data: [{ name: 'ReFunny', age: '18', address: '中国' }], children: [
+    border: true,
+    field: 'el-table',
+    data: formValue.value,
+    children: [
       { field: 'el-table-column', prop: 'name', label: '姓名' },
       { field: 'el-table-column', prop: 'age', label: '年龄' },
       { field: 'el-table-column', prop: 'address', label: '地址' },
     ],
-  }, { field: 'div', children: 'Test' }],
+  }],
 });
 
-provide('dynamic-values', computed(() => data.formValue));
+provide('dynamic-values', formValue);
 </script>

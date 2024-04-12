@@ -4,10 +4,6 @@ import { BaseField, DynamicModules } from '../../core';
 import { isType, ObjectOmit } from '../../utils';
 import { useHookRefs } from '../../hooks';
 import { Ref } from 'vue';
-//
-import 'element-plus/theme-chalk/el-form.css';
-import 'element-plus/theme-chalk/el-row.css';
-import 'element-plus/theme-chalk/el-col.css';
 
 export interface FormField extends Omit<BaseField, 'field' | 'slots'> {
   row?: RowProps; // 行属性

@@ -32,7 +32,7 @@ export default defineConfig({
     reportCompressedSize: true, // gzip 压缩大小报告
     outDir: resolve(__dirname, './dist'),
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue', 'element-plus'],
       output: {
         format: 'es',
         exports: 'named',

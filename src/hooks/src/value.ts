@@ -1,14 +1,13 @@
 import { computed, inject, Ref } from 'vue';
-import { BaseField } from '../../core';
 
-export function useHookValue(props: BaseField, value: Ref<Record<string, any>>) {
-  if (!props.prop) return value;
+export function useHookValue(props: string, value: Ref<Record<string, any>>) {
+  if (!props) return { value: undefined };
 
-  const emits = inject<Function>('dynamic-modules', null);
+  const emits = inject<Function>('dynamic-emits', null);
 
   function handlerValue(type: 'get' | 'set') {
-    if (!props.prop) return () => {};
-    const propList = props.prop.split('.');
+    if (!props) return () => {};
+    const propList = props.split('.');
     const fieldProp = propList.pop() as string;
     const targetValue = propList.reduce((prev, curr) => {
       if (!prev.hasOwnProperty(curr)) {
@@ -25,7 +24,7 @@ export function useHookValue(props: BaseField, value: Ref<Record<string, any>>) 
     // set
     return function (value: any) {
       targetValue[fieldProp] = value;
-      emits && emits('change', props.prop, value);
+      emits && emits('change', props, value);
     };
   }
 

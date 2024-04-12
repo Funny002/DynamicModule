@@ -1,35 +1,29 @@
 <template>
-  <dynamic-form ref="refModules" v-model="data.formValue" :fields="data.fields"/>
-  <el-button @click="onClick">tagger ElFormItem</el-button>
-  <dynamic-modules field="div" :children="data.children"/>
+  <div>
+    <h3>App</h3>
+    <div class="item-list">
+      <h4>DynamicModules</h4>
+      <dynamic-modules/>
+    </div>
+    <div class="item-list">
+      <h4>DynamicForm</h4>
+      <dynamic-form/>
+    </div>
+  </div>
 </template>
 
-<script lang="ts">export default { name: 'App' };</script>
-<script lang="ts" setup>
-import { DynamicForm, DynamicModules } from 'dynamic-module';
-import { reactive, ref } from 'vue';
+<script setup lang="ts">
+import DynamicModules from './src/DynamicModules.vue';
+import DynamicForm from './src/DynamicForm.vue';
+</script>
 
-const refModules = ref();
+<style>
+.item-list {
+  padding-left: 10px;
 
-function onClick() {
-  console.log(refModules.value);
-  data.fields[0]['show'] = !data.fields[0]['show'];
 }
 
-const data = reactive({
-  value: '',
-  formValue: { name: 'ReFunny', form: { name: 'FormName' } },
-  fields: [
-    { field: 'el-form-item', label: '姓名', required: true, children: [{ field: 'el-input', prop: 'form.name', label: '姓名' }] },
-    { col: { span: 12 }, field: 'el-form-item', label: '姓名', required: true, children: [{ field: 'el-input', prop: 'form.name', label: '姓名' }] },
-    { col: { span: 12 }, field: 'el-form-item', label: '姓名', required: true, style: { paddingLeft: '10px' }, children: [{ field: 'el-input', prop: 'form.name', label: '姓名' }] },
-  ],
-  children: [{
-    field: 'el-table', data: [{ name: 'ReFunny', age: '18', address: '中国' }], children: [
-      { field: 'el-table-column', prop: 'name', label: '姓名' },
-      { field: 'el-table-column', prop: 'age', label: '年龄' },
-      { field: 'el-table-column', prop: 'address', label: '地址' },
-    ],
-  }],
-});
-</script>
+.item-list h4 {
+  margin: 10px 0;
+}
+</style>

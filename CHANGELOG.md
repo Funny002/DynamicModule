@@ -1,3 +1,9 @@
+## 2024-04-12
+
+- 修改 `DynamicForm` 模块
+- 将动态组件内 `Array.map` 方法改为 `vue` 提供的 `renderList` 方法，希望可以优化渲染性能。
+- 版本更新到 `0.0.6`
+
 ## 2024-04-07
 
 - 添加 `Github` 信息到 `package.json`

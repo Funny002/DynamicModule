@@ -18,7 +18,6 @@ export type FormItemField = BaseField & { col?: ColProps; };
 
 export const DynamicForm = defineComponent({
   name: 'DynamicForm',
-  inheritAttrs: false,
   props: {
     show: { type: Boolean as PropType<BaseField['show']>, default: true },
     children: { type: Array as PropType<FormField['children']>, default: () => [] },
@@ -30,6 +29,7 @@ export const DynamicForm = defineComponent({
     modules: { type: Object as PropType<FormField['modules']>, default: () => ({}) },
     modelValue: { type: Object as PropType<FormField['modelValue']>, default: () => ({}) },
   },
+  emits: ['change'],
   setup(props, { expose, emit }) {
     // values
     const values = inject<Ref<{ [key: string]: any }>>('dynamic-values', shallowRef(props.modelValue));

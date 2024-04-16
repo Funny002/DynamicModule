@@ -48,7 +48,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'dynamic-models': resolve(__dirname, 'src'),
+      'dynamic-models': resolve(__dirname, './src'),
     },
   },
 });

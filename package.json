@@ -1,5 +1,5 @@
 {
-  "name": "dynamic-module-vue",
+  "name": "@vue-dynamic-models/dynamic-models",
   "version": "0.0.8",
   "type": "module",
   "private": false,
@@ -11,15 +11,15 @@
   },
   "author": "funny002 <funnydsu@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/Funny002/DynamicModule",
+  "homepage": "https://github.com/Vue-Dynamic-Models/DynamicModels",
   "bugs": {
     "email": "funnydsu@gmail.com",
-    "url": "https://github.com/Funny002/DynamicModule/issues"
+    "url": "https://github.com/Vue-Dynamic-Models/DynamicModels/issues"
   },
   "repository": {
     "type": "git",
-    "directory": "DynamicModule",
-    "url": "git+https://github.com/Funny002/DynamicModule.git"
+    "directory": "DynamicModels",
+    "url": "git+https://github.com/Vue-Dynamic-Models/DynamicModels.git"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",

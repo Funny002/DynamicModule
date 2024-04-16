@@ -4,7 +4,7 @@
 
 <script lang="ts">export default { name: 'AppDynamicModules' };</script>
 <script lang="ts" setup>
-import { DynamicModules } from 'dynamic-module';
+import { DynamicModules } from 'dynamic-models';
 import { provide, reactive, ref } from 'vue';
 
 const onRef = ref();

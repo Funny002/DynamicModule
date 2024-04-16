@@ -11,7 +11,7 @@
 
 <script lang="ts">export default { name: 'AppDynamicButton' };</script>
 <script lang="ts" setup>
-import { DynamicButtonGroup } from 'dynamic-module';
+import { DynamicButtonGroup } from 'dynamic-models';
 import { ElMessage } from 'element-plus';
 import { reactive } from 'vue';
 

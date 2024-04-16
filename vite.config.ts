@@ -42,13 +42,13 @@ export default defineConfig({
     },
     lib: {
       formats: ['es'],
-      name: 'dynamic-module',
+      name: 'dynamic-models',
       entry: resolve(__dirname, './src/index.ts'),
     },
   },
   resolve: {
     alias: {
-      'dynamic-module': resolve(__dirname, 'src'),
+      'dynamic-models': resolve(__dirname, 'src'),
     },
   },
 });

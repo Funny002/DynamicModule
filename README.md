@@ -1,6 +1,6 @@
-## Dynamic Module
+## Dynamic Models
 
-`Dynamic Module` 基于 `Element Plus UI` 和 `Vue3` 来实现, 是一个动态组件它可以根据传入的`JSON Schema`数据动态生成组件。
+`Dynamic Models` 基于 `Element Plus UI` 和 `Vue3` 来实现, 是一个动态组件它可以根据传入的`JSON Schema`数据动态生成组件。
 
 为了让其可以更好的使用，提供了一些基础类型，以及一些常用的组件。
 

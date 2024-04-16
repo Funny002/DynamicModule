@@ -49,7 +49,7 @@ export const DynamicButtonGroup = defineComponent({
           ];
           if (props.max) {
             // @ts-ignore
-            list.push(createVNode(DynamicDropdown, { options: props.options.slice(props.max), label: props.dropdownText, onCommand }));
+            list.push(createVNode(DynamicDropdown, { ...props.dropdown, options: props.options.slice(props.max), label: props.dropdownText, onCommand }));
           }
           return list;
         },

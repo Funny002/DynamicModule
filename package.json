@@ -37,11 +37,5 @@
     "vue": "^3.0.0",
     "element-plus": "^2.0.0"
   },
-  "files": [
-    "src",
-    "dist",
-    "docs",
-    "!.cache",
-    "!example"
-  ]
+  "files": ["src", "dist"]
 }

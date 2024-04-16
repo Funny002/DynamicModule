@@ -1,5 +1,12 @@
 <template>
-  <dynamic-button-group :max="3" group :options="data.options" @click="onClick"/>
+  <div style="display: flex;">
+    <dynamic-button-group :max="5" group :options="data.options" @click="onClick"/>
+    <dynamic-button-group style="margin-left: 100px" group :options="data.options" @click="onClick"/>
+  </div>
+  <div style="display: flex; margin-top: 20px">
+    <dynamic-button-group :max="4" :options="data.options" @click="onClick"/>
+    <dynamic-button-group style="margin-left: 100px" :options="data.options" @click="onClick"/>
+  </div>
 </template>
 
 <script lang="ts">export default { name: 'AppDynamicButton' };</script>
@@ -19,9 +26,6 @@ const data = reactive({
     { label: '按钮7', name: 'btn7' },
     { label: '按钮8', name: 'btn8' },
     { label: '按钮9', name: 'btn9' },
-    { label: '按钮10', name: 'btn10' },
-    { label: '按钮11', name: 'btn11' },
-    { label: '按钮12', name: 'btn12' },
   ],
 });
 

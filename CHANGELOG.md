@@ -1,3 +1,8 @@
+## 2024-04-16 - 11
+
+- 修正 `DynamicButtonGroup` 中 `dropdown` 属性未生效问题。
+- 版本更新到 `0.0.8`
+
 ## 2024-04-16
 
 - 添加 `DynamicButton`,`DynamicDropdown`,`DynamicButtonGroup`  组件。

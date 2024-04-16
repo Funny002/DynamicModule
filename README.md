@@ -11,8 +11,15 @@
 ## 组件
 
 > [DynamicModules](./docs/DynamicModules.md) `核心`动态组件
-> 
+>
 > [DynamicForm](./docs/DynamicForm.md) 表单封装
+>
+> [DynamicButton](./docs/DynamicButton.md) 按钮封装
+>
+> [DynamicDropdown](./docs/DynamicDropdown.md) 下拉框封装
+>
+> [DynamicButtonGroup](./docs/DynamicButtonGroup.md) 按钮组封装
+>
 
 ## 声明
 
@@ -21,6 +28,12 @@
 > [FormField](./docs/DynamicForm.md#FormField) DynamicForm 声明
 >
 > [FormItemField](./docs/DynamicForm.md#FormItemField) DynamicForm 声明
+>
+> [ButtonField](./docs/DynamicButton.md#声明) DynamicButton 声明
+>
+> [DropdownField](./docs/DynamicDropdown.md#声明) DynamicDropdown 声明
+>
+> [ButtonGroupField](./docs/DynamicButtonGroup.md#声明) DynamicButtonGroup 声明
 
 ## 更新
 

@@ -1,10 +1,11 @@
 <template>
-  <dynamic-button :max="3" group :options="data.options" @click="onClick"/>
+  <dynamic-button-group :max="3" group :options="data.options" @click="onClick"/>
 </template>
 
 <script lang="ts">export default { name: 'AppDynamicButton' };</script>
 <script lang="ts" setup>
-import { DynamicButton } from 'dynamic-module';
+import { DynamicButtonGroup } from 'dynamic-module';
+import { ElMessage } from 'element-plus';
 import { reactive } from 'vue';
 
 const data = reactive({
@@ -24,7 +25,8 @@ const data = reactive({
   ],
 });
 
-function onClick(event: Event, name?: string) {
-  console.log('onClick', event, name);
+function onClick(name: string) {
+  const item = data.options.find((item) => item.name === name);
+  ElMessage.success(`点击了${ item?.label }`);
 }
 </script>

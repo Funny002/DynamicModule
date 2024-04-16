@@ -1,3 +1,9 @@
+## 2024-04-16
+
+- 添加 `DynamicButton`,`DynamicDropdown`,`DynamicButtonGroup`  组件。
+- `DynamicButtonGroup` 是 `DynamicButton`,`DynamicDropdown` 的组合组件，可以实现按钮在一定数量下将其余的按钮折叠起来。
+- 版本更新到 `0.0.7`
+
 ## 2024-04-12
 
 - 修改 `DynamicForm` 模块

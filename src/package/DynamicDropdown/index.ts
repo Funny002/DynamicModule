@@ -1,18 +1,19 @@
 import { ButtonProps, ElButton, ElDropdown, ElDropdownItem } from 'element-plus';
 import { createVNode, defineComponent, PropType, renderList } from 'vue';
-import { ObjectOmit } from '../../../utils';
+import { ObjectOmit } from '../../utils';
 
-interface ButtonDropdownField {
-  label: string;
-  options: { name: string; label: string; icon?: any; disabled?: boolean; divided?: boolean }[];
+export interface DropdownField {
+  label?: string; // 文本
+  button?: ButtonProps; // 按钮属性
+  options: { name: string; label: string; icon?: any; disabled?: boolean; divided?: boolean }[]; // 下拉框选项
 }
 
 export const DynamicDropdown = defineComponent({
   name: 'DynamicDropdown',
   props: {
-    button: { type: Object as PropType<ButtonProps>, default: () => ({}) },
-    label: { type: String as PropType<ButtonDropdownField['label']>, default: '更多' },
-    options: { type: Array as PropType<ButtonDropdownField['options']>, default: () => [] },
+    label: { type: String as PropType<DropdownField['label']>, default: '下拉框' },
+    options: { type: Array as PropType<DropdownField['options']>, default: () => [] },
+    button: { type: Object as PropType<DropdownField['button']>, default: () => ({}) },
   },
   setup(props, { attrs, expose }) {
     expose({});

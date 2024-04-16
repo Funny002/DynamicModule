@@ -13,15 +13,6 @@
       <h4>DynamicButton</h4>
       <dynamic-button/>
     </div>
-    <el-button-group>
-      <el-button>按钮1</el-button>
-      <el-dropdown>
-        <el-button>下拉菜单</el-button>
-        <template #dropdown>
-          <el-dropdown-item>按钮2</el-dropdown-item>
-        </template>
-      </el-dropdown>
-    </el-button-group>
   </div>
 </template>
 

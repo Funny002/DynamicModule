@@ -1,4 +1,5 @@
 import { getCurrentInstance, ref } from 'vue';
+import { isType } from '../../utils';
 
 export function useHookRefs() {
   const refCore = ref();
@@ -8,8 +9,14 @@ export function useHookRefs() {
     if (!refCore.value || !instance) return;
     if (!instance.exposed) instance.exposed = {};
     if (!refCore.value.$) {
-      instance.exposed['$el'] = refCore.value;
-      Object.defineProperty(instance.exposed, '$el', { enumerable: false });
+      instance.exposed['$refs'] = [];
+      instance.exposed.instance = instance;
+      instance.exposed['$ref'] = refCore.value;
+      instance.exposed['parent'] = instance.parent?.exposed;
+      Object.defineProperty(instance.exposed, '$ref', { enumerable: false });
+      Object.defineProperty(instance.exposed, '$refs', { enumerable: false });
+      Object.defineProperty(instance.exposed, 'parent', { enumerable: false });
+      Object.defineProperty(instance.exposed, 'instance', { enumerable: false });
     } else if (refCore.value.$.exposed) {
       const entries = Object.entries(refCore.value.$.exposed);
       for (const [key, value] of entries) {
@@ -18,15 +25,22 @@ export function useHookRefs() {
     }
   }
 
-  function onAddRefs(key: string, refs?: any) {
+  function onAddRefs(index: number, refs?: any) {
     return function (ref: any) {
       if (!refCore.value || !instance) return;
       if (!instance.exposed) instance.exposed = {};
-      if (!instance.exposed.childRefs) instance.exposed.childRefs = {};
-      instance.exposed.childRefs[key] = ref;
-      if (refs) refs = ref;
+      if (!instance.exposed['$refs']) instance.exposed['$refs'] = [];
+      instance.exposed['$refs'][index] = ref;
+      if (!refs) return;
+      if (isType(refs, 'string')) {
+        instance.exposed[refs] = ref;
+      } else if (isType(refs, 'function')) {
+        refs(ref);
+      } else {
+        refs = ref;
+      }
     };
   }
 
-  return { refCore, onAddRefs, onLoadRef };
+  return { instance, refCore, onAddRefs, onLoadRef };
 }

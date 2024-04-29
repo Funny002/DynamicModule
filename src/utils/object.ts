@@ -43,3 +43,17 @@ export function ObjectOmit<T extends Record<string, any>, K extends keyof T>(tar
     return prev;
   }, {} as Omit<T, K>);
 }
+
+// 分割对象
+export function ObjectSeparation<T extends Record<string, any>, K extends keyof T>(target: T, keys: K[]): [Omit<T, K>, Pick<T, K>] {
+  const separationResult: Record<string, any> = {};
+  const result: Record<string, any> = {};
+  for (const key of Object.keys(target)) {
+    if (keys.includes(key as K)) {
+      separationResult[key] = target[key];
+    } else {
+      result[key] = target[key];
+    }
+  }
+  return [result, separationResult] as [Omit<T, K>, Pick<T, K>];
+}

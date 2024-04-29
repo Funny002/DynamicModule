@@ -1,4 +1,4 @@
-import { App, cloneVNode, computed, createVNode, defineComponent, inject, onMounted, PropType, renderList, resolveComponent, shallowRef } from 'vue';
+import { App, cloneVNode, computed, createVNode, defineComponent, inject, onMounted, PropType, reactive, renderList, resolveComponent, shallowRef, toRefs, toValue } from 'vue';
 import { useHookRefs } from '../hooks';
 import { isType } from '../utils';
 
@@ -12,7 +12,7 @@ export interface BaseField {
   /* 静态属性 */
   attrs?: Record<string, any>;
   /* 动态属性 */
-  dynamic?: Record<string, string>;
+  dynamicAttrs?: Record<string, string>;
   /* 子节点 */
   children?: BaseField[] | BaseField | any;
   /* 插槽 */
@@ -26,9 +26,9 @@ export const DynamicModels = defineComponent({
     attrs: { type: Object as PropType<BaseField['attrs']>, default: () => ({}) },
     slots: { type: Object as PropType<BaseField['slots']>, default: () => ({}) },
     prop: { type: String as PropType<BaseField['prop']>, default: () => undefined },
-    dynamic: { type: [Object, Array] as PropType<BaseField['dynamic']>, default: () => ([]) },
     field: { type: String as PropType<BaseField['field']>, default: () => (''), required: true },
     children: { type: [Array, Object, String] as PropType<BaseField['children']>, default: () => [] },
+    dynamicAttrs: { type: [Object, Array] as PropType<BaseField['dynamicAttrs']>, default: () => ([]) },
   },
   setup(props, { expose, attrs }: any) {
     const modules = inject('dynamic-modules', shallowRef({}));
@@ -40,18 +40,26 @@ export const DynamicModels = defineComponent({
     expose({});
     return () => {
       if (!show.value) return null;
-      const newProps = { ...handleAttrs(props, attrs), ref };
-      return createVNode(module.value, newProps, handleChildren(props.slots, props.children, onAddRefs));
+      return createVNode(module.value, { ...handleAttrs(props, attrs), ref }, handleChildren(props.slots, props.children, onAddRefs));
     };
   },
 });
 
 // 处理属性
-function handleAttrs(props: BaseField, attrs: Record<string, any>) {
-  const newProps: Record<string, any> = Object.assign({}, attrs, props.attrs);
-  console.log(newProps, props.dynamic);
-  // const newProps = Object.assign({ ...ctx.attrs, ref: refCore }, props.attrs, props.slotData, handleDynamicAttrs(props.dynamic, props));
-  return {};
+function handleAttrs({ attrs: propsAttrs, dynamicAttrs }: BaseField, attrs: Record<string, any>) {
+  let [props, propsKey] = [Object.assign({}, propsAttrs, attrs), dynamicAttrs as unknown as string[]];
+  if (!Array.isArray(dynamicAttrs)) {
+    [props, propsKey] = [Object.assign({}, propsAttrs, attrs, dynamicAttrs), Object.keys(dynamicAttrs)];
+  }
+  //
+  const target = reactive(props);
+  const dynamicTarget: Record<string, any> = {};
+  for (const key of propsKey) {
+    if (!dynamicTarget[key]) dynamicTarget[key] = new Function(...Object.keys(target), `return ${ props[key] }`);
+    props[key] = dynamicTarget[key](...Object.values(target));
+  }
+  //
+  return target;
 }
 
 // 处理子节点

@@ -1,30 +1,32 @@
 <template>
   <div>
-    <h3>App</h3>
-    {{ store }}
+    <h3>App</h3> {{ attrs }}
     <dynamic-models ref="onRef" field="div" :children="data.children"/>
     <dynamic-models field="button" children="按钮" @click="onClick"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import { DynamicModels } from 'dynamic-models';
+import { DynamicModels, utils } from 'dynamic-models';
 import { reactive, ref, toRefs } from 'vue';
 
 const onRef = ref();
-const store = reactive({
+
+const attrs = utils.toDynamicAttrs({
   a: 1,
   b: 2,
-});
+  c: 'a + b',
+  style: 'c + 1 >= 20 ? {display: \'none\'} : \'\'',
+}, ['style', 'c']);
+
 const data = reactive({
   children: [
     { field: 'div', children: 'App1' },
-    { field: 'div', children: 'App2', ref: 'App2', attrs: { style: 'a + b >= 20 ? {display: \'none\'} : \'\'', ...toRefs(store) }, dynamicAttrs: ['style'] },
+    { field: 'div', children: 'App2', ref: 'App2', attrs },
   ],
 });
 
 function onClick() {
-  store.a++;
-  console.log(onRef.value);
+  attrs.a++;
 }
 </script>

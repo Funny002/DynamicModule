@@ -4,4 +4,4 @@ export * from './logger';
 
 export * from './object';
 
-export * from './vue';
+export * from './dynamicAttrs';

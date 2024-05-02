@@ -1,11 +1,6 @@
-import { App } from 'vue';
+import { warnInstall } from '../utils';
+import Component from './src/index';
 
-import component from './src/index';
-
-component.install = function (Vue: App) {
-  Vue.component(component.name, component);
-};
-
-export const DynamicModels = component;
+export const DynamicModels = warnInstall(Component);
 
 export type { DynamicModelsField } from './src/interface';

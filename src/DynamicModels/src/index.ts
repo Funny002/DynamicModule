@@ -9,7 +9,7 @@ export default defineComponent({
   setup(props, { attrs, expose }) {
     const models = inject<Ref<{ [key: string]: any }>>('dynamic-modules', shallowRef({}));
     const rootValues = inject<Ref<Record<string, any>>>('dynamic-values', shallowRef({}));
-    const modelValue = useHookValue(props.prop, rootValues);
+    const modelValue = useHookValue(props.props, rootValues);
     //
     const defaultType = ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'button', 'input'];
     const component = models.value[props.field] ?? (!defaultType.includes(props.field) ? resolveComponent(props.field) : props.field);

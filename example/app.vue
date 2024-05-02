@@ -1,24 +1,33 @@
 <template>
   <div>
     <h3>App</h3>
-    <dynamic-models ref="onRef" field="div" :children="data.children"/>
-    <dynamic-models field="button" children="按钮" @click="onClick"/>
+    <div class="item-list">
+      <h4>DynamicModules</h4>
+      <dynamic-modules/>
+    </div>
+    <div class="item-list">
+      <h4>DynamicForm</h4>
+      <dynamic-form/>
+    </div>
+    <div class="item-list">
+      <h4>DynamicButton</h4>
+      <dynamic-button/>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { DynamicModels } from '../src';
-import { reactive, ref } from 'vue';
-
-const onRef = ref();
-const data = reactive({
-  children: [
-    { field: 'div', children: 'App1' },
-    { field: 'div', children: 'App2', ref: 'App2' },
-  ],
-});
-
-function onClick() {
-  console.log(onRef);
-}
+import DynamicModules from './src/DynamicModules.vue';
+import DynamicButton from './src/DynamicButton.vue';
+import DynamicForm from './src/DynamicForm.vue';
 </script>
+
+<style>
+.item-list {
+  padding-left: 10px;
+}
+
+.item-list h4 {
+  margin: 10px 0;
+}
+</style>

@@ -1,11 +1,11 @@
 <template>
-  <dynamic-modules ref="onRef" :children="data.fields" field="div"/>
+  <dynamic-models ref="onRef" :children="data.fields" field="div"/>
 </template>
 
 <script lang="ts">export default { name: 'AppDynamicModules' };</script>
 <script lang="ts" setup>
-import { DynamicModules } from 'dynamic-models';
 import { provide, reactive, ref } from 'vue';
+import { DynamicModels } from '../../src';
 
 const onRef = ref();
 

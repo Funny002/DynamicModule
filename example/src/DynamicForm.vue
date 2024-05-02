@@ -8,7 +8,7 @@
 
 <script lang="ts">export default { name: 'AppDynamicForm' };</script>
 <script lang="ts" setup>
-import { DynamicForm } from 'dynamic-models';
+import { DynamicForm } from '../../src';
 import { reactive, ref } from 'vue';
 
 const onRef = ref();

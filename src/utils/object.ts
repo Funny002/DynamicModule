@@ -1,8 +1,8 @@
 // 获取对象类型
-export const getType = (target: any) => Object.prototype.toString.call(target).slice(8, -1);
+export const getType = (target: any) => Object.prototype.toString.call(target).slice(8, -1).toLowerCase();
 
 // 判断类型
-export const isType = (target: any, type: string) => getType(target) === type;
+export const isType = (target: any, type: string) => getType(target) === type.toLowerCase();
 
 // 深拷贝
 export function ObjectDeepCopy(target: any) {
@@ -42,4 +42,18 @@ export function ObjectOmit<T extends Record<string, any>, K extends keyof T>(tar
     }
     return prev;
   }, {} as Omit<T, K>);
+}
+
+// 分割对象
+export function ObjectSeparation<T extends Record<string, any>, K extends keyof T>(target: T, keys: K[]): [Omit<T, K>, Pick<T, K>] {
+  const separationResult: Record<string, any> = {};
+  const result: Record<string, any> = {};
+  for (const key of Object.keys(target)) {
+    if (keys.includes(key as K)) {
+      separationResult[key] = target[key];
+    } else {
+      result[key] = target[key];
+    }
+  }
+  return [result, separationResult] as [Omit<T, K>, Pick<T, K>];
 }

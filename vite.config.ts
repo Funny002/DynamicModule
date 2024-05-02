@@ -1,22 +1,10 @@
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import Components from 'unplugin-vue-components/vite';
-import AutoImport from 'unplugin-auto-import/vite';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
-import * as process from 'process';
 import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: process.env.npm_lifecycle_event === 'build' ? [vue()] : [
-    vue(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-    }),
-  ],
+  plugins: [vue()],
   base: './',
   clearScreen: false, // 控制台清空
   cacheDir: resolve(__dirname, '.cache'),
